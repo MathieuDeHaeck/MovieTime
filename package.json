@@ -1,0 +1,45 @@
+{
+  "name": "movie-time",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "ios": "react-native run-ios --simulator='iPhone X'"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free-brands": "^5.0.13",
+    "@fortawesome/fontawesome-pro-light": "^5.0.13",
+    "@fortawesome/fontawesome-pro-regular": "^5.0.13",
+    "@fortawesome/fontawesome-pro-solid": "^5.0.13",
+    "axios": "^0.18.0",
+    "react": "16.3.1",
+    "react-native": "0.55.4",
+    "react-native-config": "^0.11.5",
+    "react-native-fontawesome-pro": "^1.0.12",
+    "react-native-svg": "^6.3.1",
+    "react-navigation": "^2.0.4",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-jest": "23.0.1",
+    "babel-preset-react-native": "4.0.0",
+    "flow-bin": "^0.67.1",
+    "jest": "23.1.0",
+    "prettier": "^1.13.4",
+    "react-test-renderer": "16.3.1",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-immutable-state-invariant": "^2.1.0",
+    "redux-logger": "^3.0.6"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
+  }
+}
