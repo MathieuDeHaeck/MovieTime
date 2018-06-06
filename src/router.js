@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation';
 import MoviesScreen from './screens/MoviesScreen';
 import TvShowsScreen from './screens/TvShowsScreen';
 import TabBarIcon from './components/TabBarIcon';
+import { styles, themeColors } from './styles';
 
 const TabBarNavigator = createBottomTabNavigator(
   {
@@ -38,10 +39,8 @@ const TabBarNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      activeTintColor: '#30cf7d',
-      style: {
-        backgroundColor: '#0a1c24'
-      }
+      activeTintColor: themeColors.beta,
+      style: styles.tabBar
     }
   }
 );

@@ -20,14 +20,9 @@ type MoviesScreenDispatchProps = {
 
 type MoviesScreenProps = MoviesScreenStoreProps & MoviesScreenDispatchProps;
 
-// type MoviesScreenState = {};
-// const initialState: MoviesScreenState = {};
-
 class MoviesScreen extends Component<MoviesScreenProps> {
-  // MoviesScreenState
   constructor(props: MoviesScreenProps) {
     super(props);
-    // this.state = initialState;
   }
 
   componentWillMount() {

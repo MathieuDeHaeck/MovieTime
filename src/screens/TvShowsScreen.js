@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { View, Text } from 'react-native';
+import { styles } from '../styles';
 
 type TvShowsScreenProps = {};
 type TvShowsScreenState = {};
@@ -13,10 +14,12 @@ class TvShowsScreen extends Component<TvShowsScreenProps, TvShowsScreenState> {
   }
 
   render() {
-    return <Text>TvShowsScreen 🌈🦄</Text>;
+    return (
+      <View style={styles.screenContainer}>
+        <Text style={styles.text}>TvShowsScreen 🌈🦄</Text>;
+      </View>
+    );
   }
 }
 
 export default TvShowsScreen;
-
-const styles = StyleSheet.create({});

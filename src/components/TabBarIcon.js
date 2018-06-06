@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-// import { StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-fontawesome-pro';
 
 type TabBarIconProps = {
@@ -27,5 +26,3 @@ class TabBarIcon extends Component<TabBarIconProps, TabBarIconState> {
 }
 
 export default TabBarIcon;
-
-// const styles = StyleSheet.create({});

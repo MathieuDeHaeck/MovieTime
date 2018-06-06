@@ -1,3 +1,4 @@
+// @flow
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
@@ -13,6 +14,6 @@ if (__DEV__) {
   middleware = [...middleware];
 }
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState: any) {
   return createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 }

@@ -34,7 +34,6 @@ class PosterList extends Component<PosterListProps, PosterListState> {
 
   render() {
     const { title, data } = this.props;
-    // console.log('>>> DATA:', data);
     return (
       <View style={{ paddingLeft: 14 }}>
         <Text style={styles.title}>{title}</Text>>
