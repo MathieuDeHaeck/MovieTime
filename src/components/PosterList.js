@@ -43,6 +43,7 @@ class PosterList extends Component<PosterListProps, PosterListState> {
           renderItem={({ item }) => PosterList.renderItems(item)}
           ItemSeparatorComponent={() => PosterList.renderSeparator()}
           keyExtractor={item => item.id.toString()}
+          showsHorizontalScrollIndicator={false}
         />
       </View>
     );

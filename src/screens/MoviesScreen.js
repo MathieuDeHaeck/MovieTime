@@ -1,21 +1,26 @@
 // @flow
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as moviesActions from '../actions/moviesActions';
 import PosterList from '../components/PosterList';
 import { Movie } from '../types';
 import { styles } from '../styles';
+import TopShelf from '../components/TopShelf';
 
 type MoviesScreenStoreProps = {
   nowPlayingMovies: Array<Movie>,
-  popularMovies: Array<Movie>
+  popularMovies: Array<Movie>,
+  topRatedMovies: Array<Movie>,
+  upcomingMovies: Array<Movie>
 };
 
 type MoviesScreenDispatchProps = {
   getNowPlayingMovies: () => void,
-  getPopularMovies: () => void
+  getPopularMovies: () => void,
+  getTopRatedMovies: () => void,
+  getUpcomingMovies: () => void
 };
 
 type MoviesScreenProps = MoviesScreenStoreProps & MoviesScreenDispatchProps;
@@ -32,17 +37,21 @@ class MoviesScreen extends Component<MoviesScreenProps> {
   getMovies() {
     this.props.getNowPlayingMovies();
     this.props.getPopularMovies();
+    this.props.getTopRatedMovies();
+    this.props.getUpcomingMovies();
   }
 
   componentDidMount() {}
 
   render() {
-    const { nowPlayingMovies, popularMovies } = this.props;
+    const { nowPlayingMovies, popularMovies, topRatedMovies, upcomingMovies } = this.props;
     return (
-      <View style={styles.screenContainer}>
+      <ScrollView style={styles.screenContainer}>
+        <TopShelf data={popularMovies} />
         <PosterList title={'Now Playing'} data={nowPlayingMovies} />
-        <PosterList title={'Popular'} data={popularMovies} />
-      </View>
+        <PosterList title={'Upcoming'} data={upcomingMovies} />
+        <PosterList title={'Top Rated'} data={topRatedMovies} />
+      </ScrollView>
     );
   }
 }
@@ -50,15 +59,19 @@ class MoviesScreen extends Component<MoviesScreenProps> {
 const mapStateToProps = state => {
   return {
     nowPlayingMovies: state.movies.nowPlayingMovies,
-    popularMovies: state.movies.popularMovies
+    popularMovies: state.movies.popularMovies,
+    topRatedMovies: state.movies.topRatedMovies,
+    upcomingMovies: state.movies.upcomingMovies
   };
 };
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getNowPlayingMovies: moviesActions.retrieveNowPlayingMovies,
-      getPopularMovies: moviesActions.retrievePopularMovies
+      getNowPlayingMovies: moviesActions.getNowPlayingMovies,
+      getPopularMovies: moviesActions.getPopularMovies,
+      getTopRatedMovies: moviesActions.getTopRatedMovies,
+      getUpcomingMovies: moviesActions.getUpcomingMovies
     },
     dispatch
   );

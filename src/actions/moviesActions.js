@@ -1,132 +1,130 @@
+// Todo: Flow, es6 refactor
+
 import axios from 'axios';
 import * as types from '../constants/actionTypes';
 import { TMDB_URL, TMDB_API_KEY } from '../constants/api';
 import { moviesMapper } from '../utils/movieMapperUtil';
 
-// GENRES
-export function retrieveMoviesGenresSuccess(res) {
+/**
+ * Get Now Playing Movies Success
+ * @param response
+ * @returns {{type: string, nowPlayingMovies: *}}
+ */
+export function getNowPlayingMoviesSuccess(response) {
   return {
-    type: types.RETRIEVE_MOVIES_GENRES_SUCCESS,
-    moviesGenres: res.data
+    type: types.GET_NOW_PLAYING_MOVIES_SUCCESS,
+    nowPlayingMovies: response
   };
 }
 
-export function retrieveMoviesGenres() {
-  return function(dispatch) {
-    return axios
-      .get(`${TMDB_URL}/genre/movie/list?api_key=${TMDB_API_KEY}`)
-      .then(res => {
-        dispatch(retrieveMoviesGenresSuccess(res));
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-}
-
-// POPULAR
-export function retrievePopularMoviesSuccess(res) {
-  return {
-    type: types.RETRIEVE_POPULAR_MOVIES_SUCCESS,
-    popularMovies: res
-  };
-}
-
-export function retrievePopularMovies(page) {
-  return function(dispatch) {
-    return axios
-      .get(`${TMDB_URL}/movie/popular?api_key=${TMDB_API_KEY}&page=${page}`)
-      .then(response => {
-        const movies = moviesMapper(response.data.results);
-        dispatch(retrievePopularMoviesSuccess(movies));
-      })
-      .catch(error => {
-        console.log('Popular', error);
-      });
-  };
-}
-
-// NOW PLAYING
-export function retrieveNowPlayingMoviesSuccess(res) {
-  return {
-    type: types.RETRIEVE_NOWPLAYING_MOVIES_SUCCESS,
-    nowPlayingMovies: res
-  };
-}
-
-export function retrieveNowPlayingMovies(page) {
+/**
+ * Get Now Playing Movies
+ * @param page
+ * @returns {function(*): Promise<AxiosResponse<any>>}
+ */
+export function getNowPlayingMovies(page) {
   return function(dispatch) {
     return axios
       .get(`${TMDB_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&page=${page}`)
       .then(response => {
         const movies = moviesMapper(response.data.results);
-        dispatch(retrieveNowPlayingMoviesSuccess(movies));
+        dispatch(getNowPlayingMoviesSuccess(movies));
       })
       .catch(error => {
-        console.log('Now Playing', error);
+        console.error('Movies - Now Playing:', error);
       });
   };
 }
 
-// MOVIES LIST
-export function retrieveMoviesListSuccess(res) {
+/**
+ * Get Popular Movies Success
+ * @param response
+ * @returns {{type: string, popularMovies: *}}
+ */
+export function getPopularMoviesSuccess(response) {
   return {
-    type: types.RETRIEVE_MOVIES_LIST_SUCCESS,
-    list: res.data
+    type: types.GET_POPULAR_MOVIES_SUCCESS,
+    popularMovies: response
   };
 }
 
-export function retrieveMoviesList(type, page) {
+/**
+ * Get Popular Movies
+ * @param page
+ * @returns {function(*): Promise<AxiosResponse<any>>}
+ */
+export function getPopularMovies(page) {
   return function(dispatch) {
     return axios
-      .get(`${TMDB_URL}/movie/${type}?api_key=${TMDB_API_KEY}&page=${page}`)
-      .then(res => {
-        dispatch(retrieveMoviesListSuccess(res));
+      .get(`${TMDB_URL}/movie/popular?api_key=${TMDB_API_KEY}&page=${page}`)
+      .then(response => {
+        const movies = moviesMapper(response.data.results);
+        dispatch(getPopularMoviesSuccess(movies));
       })
       .catch(error => {
-        console.log('Movies List', error);
+        console.error('Movies - Popular:', error);
       });
   };
 }
 
-// SEARCH RESULTS
-export function retrieveMoviesSearchResultsSuccess(res) {
+/**
+ * Get Top Rated Movies Success
+ * @param response
+ * @returns {{type: *, topRatedMovies: *}}
+ */
+export function getTopRatedMoviesSuccess(response) {
   return {
-    type: types.RETRIEVE_MOVIES_SEARCH_RESULT_SUCCESS,
-    searchResults: res.data
+    type: types.GET_TOP_RATED_MOVIES_SUCCESS,
+    topRatedMovies: response
   };
 }
 
-export function retrieveMoviesSearchResults(query, page) {
+/**
+ * Get Top Rated Movies
+ * @param page
+ * @returns {function(*): Promise<AxiosResponse<any>>}
+ */
+export function getTopRatedMovies(page) {
   return function(dispatch) {
     return axios
-      .get(`${TMDB_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${query}&page=${page}`)
-      .then(res => {
-        dispatch(retrieveMoviesSearchResultsSuccess(res));
+      .get(`${TMDB_URL}/movie/top_rated?api_key=${TMDB_API_KEY}&page=${page}`)
+      .then(response => {
+        const movies = moviesMapper(response.data.results);
+        dispatch(getTopRatedMoviesSuccess(movies));
       })
       .catch(error => {
-        console.log('Movies Search Results', error);
+        console.error('Movies - Top Rated:', error);
       });
   };
 }
 
-// MOVIE DETAILS
-export function retrieveMovieDetailsSuccess(res) {
+/**
+ * Get Upcoming Movies Success
+ * @param response
+ * @returns {{type: *, upcomingMovies: *}}
+ */
+export function getUpcomingMoviesSuccess(response) {
   return {
-    type: types.RETRIEVE_MOVIE_DETAILS_SUCCESS,
-    details: res.data
+    type: types.GET_UPCOMING_MOVIES_SUCCESS,
+    upcomingMovies: response
   };
 }
 
-export function retrieveMovieDetails(movieId) {
+/**
+ * Get Upcoming Movies
+ * @param page
+ * @returns {function(*): Promise<AxiosResponse<any>>}
+ */
+export function getUpcomingMovies(page) {
   return function(dispatch) {
     return axios
-      .get(`${TMDB_URL}/movie/${movieId}?api_key=${TMDB_API_KEY}&append_to_response=casts,images,videos`)
-      .then(res => {
-        dispatch(retrieveMovieDetailsSuccess(res));
+      .get(`${TMDB_URL}/movie/upcoming?api_key=${TMDB_API_KEY}&page=${page}`)
+      .then(response => {
+        const movies = moviesMapper(response.data.results);
+        dispatch(getUpcomingMoviesSuccess(movies));
       })
       .catch(error => {
-        console.log('Movie Details', error);
+        console.error('Movies - Upcoming:', error);
       });
   };
 }
@@ -142,4 +140,88 @@ export function retrieveMovieDetails(movieId) {
 //   } catch (error) {
 //     console.error(error);
 //   }
+// }
+
+// GENRES
+// export function getMoviesGenresSuccess(res) {
+//   return {
+//     type: types.GET_MOVIES_GENRES_SUCCESS,
+//     moviesGenres: res.data
+//   };
+// }
+//
+// export function getMoviesGenres() {
+//   return function(dispatch) {
+//     return axios
+//       .get(`${TMDB_URL}/genre/movie/list?api_key=${TMDB_API_KEY}`)
+//       .then(res => {
+//         dispatch(getMoviesGenresSuccess(res));
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       });
+//   };
+// }
+
+// MOVIE DETAILS
+// export function getMovieDetailsSuccess(res) {
+//   return {
+//     type: types.GET_MOVIE_DETAILS_SUCCESS,
+//     details: res.data
+//   };
+// }
+//
+// export function getMovieDetails(movieId) {
+//   return function(dispatch) {
+//     return axios
+//         .get(`${TMDB_URL}/movie/${movieId}?api_key=${TMDB_API_KEY}&append_to_response=casts,images,videos`)
+//         .then(res => {
+//           dispatch(getMovieDetailsSuccess(res));
+//         })
+//         .catch(error => {
+//           console.log('Movie Details', error);
+//         });
+//   };
+// }
+
+// SEARCH RESULTS
+// export function getMoviesSearchResultsSuccess(res) {
+//   return {
+//     type: types.GET_MOVIES_SEARCH_RESULT_SUCCESS,
+//     searchResults: res.data
+//   };
+// }
+//
+// export function getMoviesSearchResults(query, page) {
+//   return function(dispatch) {
+//     return axios
+//         .get(`${TMDB_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${query}&page=${page}`)
+//         .then(res => {
+//           dispatch(getMoviesSearchResultsSuccess(res));
+//         })
+//         .catch(error => {
+//           console.log('Movies Search Results', error);
+//         });
+//   };
+// }
+
+// MOVIES LIST
+// export function getMoviesListSuccess(response) {
+//   return {
+//     type: types.GET_MOVIES_LIST_SUCCESS,
+//     list: response.data
+//   };
+// }
+//
+// export function getMoviesList(type, page) {
+//   return function(dispatch) {
+//     return axios
+//         .get(`${TMDB_URL}/movie/${type}?api_key=${TMDB_API_KEY}&page=${page}`)
+//         .then(res => {
+//           dispatch(getMoviesListSuccess(res));
+//         })
+//         .catch(error => {
+//           console.log('Movies List', error);
+//         });
+//   };
 // }
